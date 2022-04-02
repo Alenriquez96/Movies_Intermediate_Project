@@ -46,37 +46,51 @@ const myMovies = async (req, res) => {
     res.render("user/myMovies");
 }
 
+const createMovieView = (req,res) =>{
+    res.render("admin/createMovie")
+}
+
 const createMovie = async (req, res) => {
     console.log(req.body); // Objeto recibido de entry nueva
-    const newEntry = req.body; // {} nuevo producto a guardar
+    const newMovie = req.body; // {} nuevo producto a guardar
     // Líneas para guardar en una BBDD SQL
-    const response = await search.createEntry(newEntry);
-    res.status(201).json({ "items_created": response });
+    const response = await movies.createMovie(newMovie);
+    res.status(201).json({ "movie_created": response });
+}
+
+const updateMovieView = (req,res) =>{
+    res.render("admin/editMovie")
 }
 
 const updateMovie = async (req, res) => {
+    const updatedMovie = req.body;
+    const response = await movies.updateMovie
+}
 
+const deleteMovieView = (req,res)=>{
+    res.render("admin/removeMovie");
 }
 
 const deleteMovie = async (req, res) => {
-
+    
 }
 
 
 const movie = {
-
-    // getMovieByTitle,
-    // getAllMovies,
+    //ADMIN
     createMovie,
-    // updateMovie,
-    // deleteMovie,
+    createMovieView,
+    updateMovie,
+    updateMovieView,
+    deleteMovie,
+    deleteMovieView,
+    //USER
     searchFilms,
     getFilms,
     inputFilms,
     showFilm,
     dashboard,
-    myMovies,
-    like
+    myMovies//Esta la comparten admin y user
 }
 
 module.exports = movie;
