@@ -9,9 +9,13 @@ html(lang="es")
     
     body 
         section 
+            img(src='../../img/like_1.svg', alt='like', style="width:50px; height:50px" id="like" onclick="like()")
             p Año: #{film.year}
             p Duración: #{film.runtimeStr}
             p Género/s: #{film.genres}
             p Título: #{film.title}
             p Trama : #{film.plot}
             img(src=film.image, alt="Imagen de la película")
+            
+script(src="../../js/script.js")
+

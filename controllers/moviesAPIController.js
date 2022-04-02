@@ -14,7 +14,8 @@ const getFilms = async (req, res) => {
     if (req.params.title) {
         const film = await search.getFilmsByTitle(req.params.title);//Devuelve 1
         const f = film.results
-        res.render("user/searchTitle", { "films": f });//Pinta datos en el pug. Aquí hemos metido data en un objeto para  que con la plantilla del pug lo coja.
+        console.log(f);
+        res.render("user/searchTitle", { "films": f });//Pinta datos en el pug. Aquí hemos metido data en un objeto para que con la plantilla del pug lo coja.
     }
 }
 
@@ -31,10 +32,17 @@ const showFilm = async (req, res) => {
 };
 
 //-------Esta se encarga de las pelis favoritas----//
+function like(){
+
+}
+
 const myMovies = async (req, res) => {
     //Aqui dentro va toda la movida del fetch a nuestras pelis favoritas y que se rendericen...
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
+
+
+
     res.render("user/myMovies");
 }
 
@@ -67,7 +75,8 @@ const movie = {
     inputFilms,
     showFilm,
     dashboard,
-    myMovies
+    myMovies,
+    like
 }
 
 module.exports = movie;
