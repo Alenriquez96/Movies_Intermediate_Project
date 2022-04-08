@@ -1,6 +1,7 @@
 // Módulos externos
 const express = require('express');
 
+
 // Rutas
 const moviesRouter = require('./routes/moviesAPIRoute');
 const userRouter = require('./routes/userAPIRoute');
@@ -9,7 +10,7 @@ const userRouter = require('./routes/userAPIRoute');
 // const notFound = require('./middlewares/notFound');
 
 const app = express();
-const port = 3000;
+//const port = process.env.URL_BASE || 5000;
 
 
 app.set('view engine', 'pug');
@@ -28,8 +29,8 @@ app.use("/", userRouter);
 // app.use(notFound);
 
 // Necesario para pasar el test
-const server = app.listen(port, () => {
+/* const server = app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-})
+}) */
 
 module.exports = server;
