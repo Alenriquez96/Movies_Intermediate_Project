@@ -20,13 +20,14 @@ html(lang="es")
                         li(class="nav-item")
                             a(href="/movies", class="nav-link") My movies
                         li(class="nav-item")
-                            a(href="/logout", class="nav-link") Logout
+                            a(href="/login", class="nav-link") Logout
                     div(class="hamburger")
                             span(class="bar")
                             span(class="bar")
                             span(class="bar") 
+
         section#sectionDetail
-            div(id="div-detail") 
+            (id="div-detail")
                 - let idMovie = film.info.id;
                 button(class="btn_fav" value = idMovie) Add to favourites
                 p <b> Year:</b> #{film.info.year}
@@ -35,19 +36,15 @@ html(lang="es")
                 p <b>Title:</b> #{film.info.title}
                 p.plot  <b>Plot:</b> #{film.info.plot}
                 img(src=film.info.image, alt="Imagen de la película")
-                if reviewS !== 'undefined'
+                if film.reviewS
                     div#imgSensacine
                         h4  Review
                         img(src="../../img/sensacine.png", alt="logo filmaffinity", srcset="")
                     p <b>Author:</b> #{film.reviewS.innerUserOfReview} 
                     p.plot  #{film.reviewS.innerTextOfReview}
-                if reviewF !== 'undefined'
+                if film.reviewF
                     div#imgFilmafiinity 
                         h4 Review
                         img(src="../../img/filmaffinity.png", alt="logo sensacine")
                     p <b>Author:</b> #{film.reviewF.innerUserOfReview} 
                     p.plot  #{film.reviewF.innerTextOfReview}
-             
-           
-        script(src="/js/favMovie.js")
-        script(src="/js/hamburger.js")

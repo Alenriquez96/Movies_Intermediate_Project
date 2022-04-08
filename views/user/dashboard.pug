@@ -11,7 +11,7 @@ body(id="body-dashboard")
                             li(class="nav-item")
                                 a(href="/movies", class="nav-link") My movies
                             li(class="nav-item")
-                                a(href="/logout", class="nav-link") Logout
+                                a(href="/login", class="nav-link") Logout
                         div(class="hamburger")
                                 span(class="bar")
                                 span(class="bar")
@@ -23,9 +23,12 @@ body(id="body-dashboard")
             div(id="div-astronauta-dashboard")
                 img(src="../img/astronauta.movies.svg", alt="astronauta con palomitas" id="astronautamovies-dashboard")
             section(id="section-buttons-dashboard")
-                a(href="/search" type="submit" id="search-submit") SEARCH A MOVIE
-                
-                a(href="/movies" type="submit" id="mymovies-submit") GO TO MY MOVIES
+
+                a(href="/search") 
+                    button(id="search-submit") SEARCH A MOVIE
+                a(href="/movies" ) 
+                    button(id="mymovies-submit") GO TO MY MOVIES
+
                 
         
 script(src="/js/hamburger.js") 

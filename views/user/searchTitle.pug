@@ -12,6 +12,8 @@ html(lang="es")
 
         header
             nav(class='navbar')
+
+
                 img(src="../../img/movies.svg", alt="logo" href="/dashboard", class="nav-branding")
                 ul(class="nav-menu")
                     li(class="nav-item")
@@ -21,16 +23,26 @@ html(lang="es")
                     li(class="nav-item")
                         a(href="/movies", class="nav-link") My movies
                     li(class="nav-item")
-                        a(href="/logout", class="nav-link") Logout
+                        a(href="/login", class="nav-link") Logout
                 div(class="hamburger")
                         span(class="bar")
                         span(class="bar")
                         span(class="bar")
 
+
         section  
 
                 each film in films
+
+                    div 
+                        if film.description 
+                                p Year: #{film.description}
+                        if film.year 
+                                p Year: #{film.year}
+                        p Title: #{film.title}
+
                     div(class="div-film")  
+
                         img(src=film.image, alt="Imagen de la película")
                         p Title: #{film.title}
                         p Year: #{film.description}

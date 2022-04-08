@@ -26,10 +26,12 @@ checkAdmin.use(async (req, res, next) => {
     
     if(user.admin){
         next()
+
     } else if (user.admin == false){
         return res.status(401).send({
             message: "Unauthorized!"
         });
+        
     } else {
         res.sendStatus(401);
     } 

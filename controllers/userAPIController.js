@@ -48,7 +48,7 @@ const loginUser = async (req, res) => {
                 res.cookie("access-token", token, {
                     httpOnly: true,
                     sameSite: "strict",
-                }).redirect(`${process.env.URL_BASE}/dashboard`);
+                }).redirect(`/dashboard`);
             }
             else if (match && user.admin == true) {
                 const payload = {
@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
                 res.cookie("access-token", token, {
                     httpOnly: true,
                     sameSite: "strict",
-                }).redirect(`${process.env.URL_BASE}/movies`);
+                }).redirect(`/movies`);
             }
             else {
                 res.send('Email or password incorrect');
@@ -79,7 +79,7 @@ const signUpUser = async (req, res) => {
     try {
         const newUser = req.body; // {} nuevo user a guardar
         const response = await db.signUpUser(newUser, res);
-        res.status(201).redirect(`${process.env.URL_BASE}/login`);
+        res.status(201).redirect(`/login`);
     } catch (error) {
         console.log('Error:', error);
     }
@@ -93,7 +93,7 @@ const recoverPassView = (req, res) => {
 const recoverPass = async (req, res) => {
     try {
         const recoverToken = jwt.sign({ email: req.body.email }, config.llaveRecover, { expiresIn: '10m' });
-        const url = `${process.env.URL_BASE}/restorepassword/` + recoverToken;
+        const url = `/restorepassword/` + recoverToken;
         await transporter.sendMail({
             to: req.body.email,
             subject: 'Recover Password',
@@ -151,14 +151,9 @@ const restorePass = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     // req.logout();
-    res.clearCookie("access-token").redirect(`${process.env.URL_BASE}`)
+    res.clearCookie("access-token");
+    res.render("auth/login");
 }
-
-//-------------------------Esta función loguea los usuarios de la bbdd en la terminal(Descomentar para loguear)--------------//
-// const users = (async(req,res)=>{
-//     const u = await db.getUsers();
-//     console.log(u);        
-
 
 
 const google = (req, res) => {

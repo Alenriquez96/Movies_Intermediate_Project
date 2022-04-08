@@ -21,8 +21,13 @@ const getFilms = async (req, res) => {
         console.log(mongoFilms);
         const film = await search.getFilmsByTitle(req.params.title);//Devuelve 1
         const apiFilms = film.results;
-        // const aFilms = [...mongoFilms, ...apiFilms];
-        res.render("user/searchTitle", { "films": apiFilms });//Pinta datos en el pug. Aquí hemos metido data en un objeto para  que con la plantilla del pug lo coja.
+        
+        const aFilms = [...mongoFilms, ...apiFilms];
+        console.log(aFilms)
+
+
+
+        res.render("user/searchTitle", { "films": aFilms });//Pinta datos en el pug. Aquí hemos metido data en un objeto para  que con la plantilla del pug lo coja.
     }
 }
 
@@ -30,7 +35,7 @@ const inputFilms = (req, res) => {
     const films = req.body.films;
     /*     scraper.scrap_sensacine(films) // scrapping de la pelicula que se busque.
      */
-    res.redirect(`${process.env.URL_BASE}/search/${films}`)
+    res.redirect(`/search/${films}`)
 
 }
 
@@ -40,17 +45,23 @@ const showFilm = async (req, res) => {
         const info = await search.getFilmInfo(req.params.id);//Devuelve detalles de 1 peli a través de su ID
         const reviewS = await scrap_sensacine(req.params.title);  //Devuelve detalles de 1 peli a través de su titulo
         const reviewF = await scrap_filmaffinity(req.params.title);
-        if (reviewF == undefined) {
+        if (reviewF && reviewS) {
             const filmInfo = {
                 info,
+                reviewF,
                 reviewS
             }
             res.render("user/searchMovieTitle", { "film": filmInfo });
-        } else {
+        } else if (reviewF && !reviewS){
             const filmInfo = {
                 info,
-                reviewS,
                 reviewF
+            }
+            res.render("user/searchMovieTitle", { "film": filmInfo });
+        } else if (reviewS && !reviewF) {
+            const filmInfo = {
+                info,
+                reviewS
             }
             res.render("user/searchMovieTitle", { "film": filmInfo });
         }
@@ -74,8 +85,18 @@ const myMovies = async (req, res) => {
     } else { // User
         //TODO: Hacer el fetch de los datos de la API y mostrar los de Mongo
         const favMovies = await movies.getFavs(token);
-        console.log(favMovies);
-        res.render("user/myMovies", { "films": favMovies })
+        const favMoviesArray = [];
+        for(const movie of favMovies){
+            if(typeof(movie) === 'object'){
+                favMoviesArray.push(movie);
+            } else {
+                let response = await fetch(`${process.env.GET_INFO_URL}${process.env.API_KEY_MOVIES}/${movie}`);//{}
+                let filmInfo = await response.json();//{}
+                favMoviesArray.push(filmInfo)
+            }
+        }
+        console.log(favMoviesArray);
+        res.render("user/myMovies", { "films": favMoviesArray })
     }
 }
 
@@ -96,7 +117,7 @@ const createMovieView = (req, res) => {
 const createMovie = async (req, res) => {
     const newMovie = req.body; // {} nuevo producto a guardar
     const response = await movies.createMovie(newMovie);
-    res.status(201).redirect(`${process.env.URL_BASE}/movies`);
+    res.status(201).redirect(`/movies`);
 }
 
 const updateMovieView = async (req, res) => {
@@ -110,13 +131,13 @@ const updateMovie = async (req, res) => {
     let movie = req.body;
     movie._id = req.params.id;
     await movies.updateMovie(movie);
-    res.status(201).redirect(`${process.env.URL_BASE}/moviesAdmin`);
+    res.status(201).redirect(`/moviesAdmin`);
 }
 
 const deleteMovie = async (req, res) => {
     const deleteMovieById = req.body.id;
     await movies.deleteMovie(deleteMovieById);
-    res.redirect(`${process.env.URL_BASE}/movies`);
+    res.redirect(`/movies`);
 }
 
 
