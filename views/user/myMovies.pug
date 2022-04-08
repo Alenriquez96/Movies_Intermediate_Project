@@ -27,20 +27,26 @@ html(lang="es")
 
         h2 My favourite movies
         section 
-            if films 
-                each film, index in films
-                    
+            //-
+                each film in films
                     div 
-                        p(class="none") #{film} 
-                        p Title:
-                        p Year: 
-                        p Director: 
-                        p Actorlist: 
-                        p Plot: 
-                        p Genre: 
-                        p Reviews: 
-                        p Duration:                      
-                        img(src=film.image, alt="Imagen de la película") 
+                        if film.description 
+                                p Year: #{film.description}
+                        if film.year 
+                                p Year: #{film.year}
+                        p Title: #{film.title}
+                        img(src=film.image, alt="Imagen de la película")
+                        - let idMovie = film.id;
+                        a(href='/movie/' + idMovie + '&'+ film.title, class="toDetails") Details
+                        div(class="lds-roller")
+                            div
+                            div
+                            div
+                            div
+                            div
+                            div
+                            div
+                            div
                         - let idMovie = film._id;
                         button(class="btn_fav" value = idMovie) Favoritos
 

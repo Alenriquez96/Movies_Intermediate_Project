@@ -21,8 +21,11 @@ body
         section  
             
                 each film in films
-                    div  
-                        p Year: #{film.description}
+                    div 
+                        if film.description 
+                                p Year: #{film.description}
+                        if film.year 
+                                p Year: #{film.year}
                         p Title: #{film.title}
                         img(src=film.image, alt="Imagen de la película")
                         - let idMovie = film.id;

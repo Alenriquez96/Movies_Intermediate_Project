@@ -21,8 +21,13 @@ const getFilms = async (req, res) => {
         console.log(mongoFilms);
         const film = await search.getFilmsByTitle(req.params.title);//Devuelve 1
         const apiFilms = film.results;
-        // const aFilms = [...mongoFilms, ...apiFilms];
-        res.render("user/searchTitle", { "films": apiFilms });//Pinta datos en el pug. Aquí hemos metido data en un objeto para  que con la plantilla del pug lo coja.
+        
+        const aFilms = [...mongoFilms, ...apiFilms];
+        console.log(aFilms)
+
+
+
+        res.render("user/searchTitle", { "films": aFilms });//Pinta datos en el pug. Aquí hemos metido data en un objeto para  que con la plantilla del pug lo coja.
     }
 }
 
@@ -80,8 +85,18 @@ const myMovies = async (req, res) => {
     } else { // User
         //TODO: Hacer el fetch de los datos de la API y mostrar los de Mongo
         const favMovies = await movies.getFavs(token);
-        console.log(favMovies);
-        res.render("user/myMovies", { "films": favMovies })
+        const favMoviesArray = [];
+        for(const movie of favMovies){
+            if(typeof(movie) === 'object'){
+                favMoviesArray.push(movie);
+            } else {
+                let response = await fetch(`${process.env.GET_INFO_URL}${process.env.API_KEY_MOVIES}/${movie}`);//{}
+                let filmInfo = await response.json();//{}
+                favMoviesArray.push(filmInfo)
+            }
+        }
+        console.log(favMoviesArray);
+        res.render("user/myMovies", { "films": favMoviesArray })
     }
 }
 

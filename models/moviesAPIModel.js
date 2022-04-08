@@ -51,7 +51,7 @@ const getFavs = async (token) => {
             console.log("mongo movie: ", mongoMovie);
             mongoMovies.push(mongoMovie);
         }
-        console.log("mongo movies ", mongoMovies);
+        console.log([...mongoMovies, ...sqlIDs]);
         return [mongoMovies, sqlIDs]
     }
     catch (err) {

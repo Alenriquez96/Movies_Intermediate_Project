@@ -69,6 +69,4 @@ const scrap_sensacine = async (movie) => {
 };
 
 
-/* scrap_sensacine("mulan");
- */
 module.exports = scrap_sensacine;
