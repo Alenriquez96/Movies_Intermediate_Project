@@ -151,14 +151,9 @@ const restorePass = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     // req.logout();
-    res.clearCookie("access-token").redirect(process.env.RUTE)
+    res.clearCookie("access-token");
+    res.render("auth/login");
 }
-
-//-------------------------Esta función loguea los usuarios de la bbdd en la terminal(Descomentar para loguear)--------------//
-// const users = (async(req,res)=>{
-//     const u = await db.getUsers();
-//     console.log(u);        
-
 
 
 const google = (req, res) => {
