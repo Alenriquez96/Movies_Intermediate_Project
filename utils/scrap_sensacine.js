@@ -4,7 +4,10 @@ const scrap_sensacine = async (movie) => {
     try{
     
     //lanzamos chrome
-    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({headless: true, args: ["--incognito",
+    "--no-sandbox",
+    "--single-process",
+    "--no-zygote"]});
     const page = await browser.newPage();
     await page.setViewport({width:1440, height:614});
 
