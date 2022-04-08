@@ -9,12 +9,12 @@ const getFavs = `SELECT movie_id FROM movies INNER JOIN users ON users.user_id =
 const addFavs = `INSERT INTO movies(movie_id, user_id) VALUES ($1, $2)`
 
 const queries = {
-signUpUserQuery,
-getUsersQuery,
-deleteMovieQuery,
-getUsersByEmail,
-getFavs,
-addFavs
+    signUpUserQuery,
+    getUsersQuery,
+    deleteMovieQuery,
+    getUsersByEmail,
+    getFavs,
+    addFavs
 }
 
 
