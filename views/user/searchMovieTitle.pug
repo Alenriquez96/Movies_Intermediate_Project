@@ -7,11 +7,11 @@ html(lang="es")
         link(rel="stylesheet", href="/css/styles.css")
         title Movies 
     
-    body
+    body(id="body-searchmovietitle")
 
         header
             nav(class='navbar')
-                    a(href="#", class="nav-branding") MovieApp
+                    img(src="../../img/movies.svg", alt="logo" href="/dashboard", class="nav-branding")
                     ul(class="nav-menu")
                         li(class="nav-item")
                             a(href="/dashboard", class="nav-link") Dashboard
@@ -25,24 +25,26 @@ html(lang="es")
                             span(class="bar")
                             span(class="bar")
                             span(class="bar") 
-        section 
-            - let idMovie = film.info.id;
-            button(class="btn_fav" value = idMovie) Add to favourites
-            p Year: #{film.info.year}
-            p Duration: #{film.info.runtimeStr}
-            p Genre: #{film.info.genres}
-            p Title: #{film.info.title}
-            p Plot : #{film.info.plot}
-            img(src=film.info.image, alt="Imagen de la película")
-            if film.reviewS
-                p Review Sensacine:
-                p Author: #{film.reviewS.innerUserOfReview} 
-                p #{film.reviewS.innerTextOfReview}
-            if film.reviewF
-                p Review FilmAffinity:
-                p Author: #{film.reviewF.innerUserOfReview} 
-                p #{film.reviewF.innerTextOfReview}
-             
-           
-        script(src="/js/favMovie.js")
-        script(src="/js/hamburger.js")
+
+        section#sectionDetail
+            (id="div-detail")
+                - let idMovie = film.info.id;
+                button(class="btn_fav" value = idMovie) Add to favourites
+                p <b> Year:</b> #{film.info.year}
+                p <b>Duration:</b> #{film.info.runtimeStr}
+                p <b>Genre:</b> #{film.info.genres}
+                p <b>Title:</b> #{film.info.title}
+                p.plot  <b>Plot:</b> #{film.info.plot}
+                img(src=film.info.image, alt="Imagen de la película")
+                if film.reviewS
+                    div#imgSensacine
+                        h4  Review
+                        img(src="../../img/sensacine.png", alt="logo filmaffinity", srcset="")
+                    p <b>Author:</b> #{film.reviewS.innerUserOfReview} 
+                    p.plot  #{film.reviewS.innerTextOfReview}
+                if film.reviewF
+                    div#imgFilmafiinity 
+                        h4 Review
+                        img(src="../../img/filmaffinity.png", alt="logo sensacine")
+                    p <b>Author:</b> #{film.reviewF.innerUserOfReview} 
+                    p.plot  #{film.reviewF.innerTextOfReview}
