@@ -40,17 +40,23 @@ const showFilm = async (req, res) => {
         const info = await search.getFilmInfo(req.params.id);//Devuelve detalles de 1 peli a través de su ID
         const reviewS = await scrap_sensacine(req.params.title);  //Devuelve detalles de 1 peli a través de su titulo
         const reviewF = await scrap_filmaffinity(req.params.title);
-        if (reviewF == undefined) {
+        if (reviewF && reviewS) {
             const filmInfo = {
                 info,
+                reviewF,
                 reviewS
             }
             res.render("user/searchMovieTitle", { "film": filmInfo });
-        } else {
+        } else if (reviewF && !reviewS){
             const filmInfo = {
                 info,
-                reviewS,
                 reviewF
+            }
+            res.render("user/searchMovieTitle", { "film": filmInfo });
+        } else if (reviewS && !reviewF) {
+            const filmInfo = {
+                info,
+                reviewS
             }
             res.render("user/searchMovieTitle", { "film": filmInfo });
         }

@@ -34,11 +34,11 @@ html(lang="es")
             p Title: #{film.info.title}
             p Plot : #{film.info.plot}
             img(src=film.info.image, alt="Imagen de la película")
-            if reviewS !== 'undefined'
+            if film.reviewS
                 p Review Sensacine:
                 p Author: #{film.reviewS.innerUserOfReview} 
                 p #{film.reviewS.innerTextOfReview}
-            if reviewF !== 'undefined'
+            if film.reviewF
                 p Review FilmAffinity:
                 p Author: #{film.reviewF.innerUserOfReview} 
                 p #{film.reviewF.innerTextOfReview}

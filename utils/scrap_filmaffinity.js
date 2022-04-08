@@ -14,42 +14,17 @@ const scrap_filmaffinity = async (title) => {
     await page.setViewport({ width: 1440, height: 614 });
 
     //abrimos site
-    await page.goto('https://www.filmaffinity.com');
-
-
-    if (await page.$('#qc-cmp2-main > div')) {
-      await page.click('#qc-cmp2-ui > div.qc-cmp2-footer.qc-cmp2-footer-overlay > div > button.css-v43ltw');
-    }
-
-    //escribimos en el buscador el nombre que le introduzcamos como argumento
-    await page.type('#top-search-input', title)
-
-
-    //selecciono la clase común a las cajas que me interesan (se ven en la propia pagina)
-    await page.click('#button-search');
+    await page.goto(`https://www.filmaffinity.com/es/search.php?stext=${title}`);
     await page.waitForSelector('.z-search');
 
     const links = await page.evaluate(() => {
       const elements = document.querySelectorAll('.mc-title a')
-
-      let links = [];
-      for (let element of elements) {
-        links.push(element.href);
-      }
-      return links;
+      const link = elements[0].href;
+      return link;
     })
-
-    //hacemos click en ese enlace
-    await page.goto(links[0]);
-    await page.waitForSelector('#main-title');
-    /*   if(await page.$('#top-ad')){
-        await page.waitForTimeout(2000)
-      } */
-
-
-    //va a críticas
-    await page.click('.ntabs li:nth-child(2)');
-    await page.waitForTimeout(2000)
+    
+    //hacemos click en ese enlace 
+    await page.goto(`https://www.filmaffinity.com/es/reviews/1/${links.slice(36,42)}.html`);
     await page.waitForSelector('.review-text1');
 
     //sacamos el primer comentario de las reviews de usuarios (username + comentario)
