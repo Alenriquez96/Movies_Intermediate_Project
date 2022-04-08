@@ -10,7 +10,7 @@ const userRouter = require('./routes/userAPIRoute');
 // const notFound = require('./middlewares/notFound');
 
 const app = express();
-//const port = process.env.URL_BASE || 5000;
+const PORT = process.env.URL_BASE || 5000;
 
 
 app.set('view engine', 'pug');
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use("/", moviesRouter);
 app.use("/", userRouter);
 
-
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 // Middleware de rutas inexistentes
 // app.use(notFound);
 
