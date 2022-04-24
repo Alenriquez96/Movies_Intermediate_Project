@@ -48,7 +48,7 @@ const loginUser = async (req, res) => {
                 res.cookie("access-token", token, {
                     httpOnly: true,
                     sameSite: "strict",
-                }).redirect(`${process.env.URL_BASE}/dashboard`);
+                }).redirect(`/dashboard`);
             }
             else if (match && user.admin == true) {
                 const payload = {
@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
                 res.cookie("access-token", token, {
                     httpOnly: true,
                     sameSite: "strict",
-                }).redirect(`${process.env.URL_BASE}/movies`);
+                }).redirect(`/movies`);
             }
             else {
                 res.send('Email or password incorrect');
@@ -79,7 +79,7 @@ const signUpUser = async (req, res) => {
     try {
         const newUser = req.body; // {} nuevo user a guardar
         const response = await db.signUpUser(newUser, res);
-        res.status(201).redirect(`${process.env.URL_BASE}/login`);
+        res.status(201).redirect(`/login`);
     } catch (error) {
         console.log('Error:', error);
     }
@@ -131,7 +131,7 @@ const restorePass = async (req, res) => {
                     `UPDATE users
                     SET password = ($1)
                     WHERE email = ($2)`, [hashPassword, payload.email]);
-                res.status(200).redirect(`${process.env.URL_BASE}/login`);
+                res.status(200).redirect(`/login`);
             }
             else if (pass != pass2) {
                 res.send("Passwords dont match");
@@ -151,7 +151,7 @@ const restorePass = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     // req.logout();
-    res.clearCookie("access-token").redirect(`${process.env.URL_BASE}`)
+    res.clearCookie("access-token").redirect(`/`)
 }
 
 //-------------------------Esta función loguea los usuarios de la bbdd en la terminal(Descomentar para loguear)--------------//

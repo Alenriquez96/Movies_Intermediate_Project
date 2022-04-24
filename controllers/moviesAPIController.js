@@ -30,7 +30,7 @@ const inputFilms = (req, res) => {
     const films = req.body.films;
     /*     scraper.scrap_sensacine(films) // scrapping de la pelicula que se busque.
      */
-    res.redirect(`${process.env.URL_BASE}/search/${films}`)
+    res.redirect(`/search/${films}`)
 
 }
 
@@ -96,7 +96,7 @@ const createMovieView = (req, res) => {
 const createMovie = async (req, res) => {
     const newMovie = req.body; // {} nuevo producto a guardar
     const response = await movies.createMovie(newMovie);
-    res.status(201).redirect(`${process.env.URL_BASE}/movies`);
+    res.status(201).redirect(`/movies`);
 }
 
 const updateMovieView = async (req, res) => {
@@ -110,13 +110,13 @@ const updateMovie = async (req, res) => {
     let movie = req.body;
     movie._id = req.params.id;
     await movies.updateMovie(movie);
-    res.status(201).redirect(`${process.env.URL_BASE}/moviesAdmin`);
+    res.status(201).redirect(`/moviesAdmin`);
 }
 
 const deleteMovie = async (req, res) => {
     const deleteMovieById = req.body.id;
     await movies.deleteMovie(deleteMovieById);
-    res.redirect(`${process.env.URL_BASE}/movies`);
+    res.redirect(`/movies`);
 }
 
 
