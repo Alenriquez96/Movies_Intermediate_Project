@@ -1,5 +1,4 @@
 # Movies APP 🎬
-<p>🔗 Click <a href="https://thebrige-newsapp.netlify.app/">HERE</a> to check it out!</p>
 
 <p>➡️  Mobile first</p>
 <p>➡️  Node.JS</p>
